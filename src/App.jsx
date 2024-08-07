@@ -12,8 +12,10 @@ export default function App() {
     () => JSON.parse(localStorage.getItem('notes')) || []
   );
   const [currentNoteId, setCurrentNoteId] = React.useState(
-    (notes[0] && notes[0].id) || ''
+    (notes[0]?.id) || ''
   );
+
+  const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
 
   React.useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes));
@@ -44,31 +46,12 @@ export default function App() {
     });
   }
 
-  /**
-   * Challenge: complete and implement the deleteNote function
-   *
-   * Hints:
-   * 1. What array method can be used to return a new
-   *    array that has filtered out an item based
-   *    on a condition?
-   * 2. Notice the parameters being based to the function
-   *    and think about how both of those parameters
-   *    can be passed in during the onClick event handler
-   */
-
   function deleteNote(event, noteId) {
     event.stopPropagation();
     setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
     console.log(notes)
   }
 
-  function findCurrentNote() {
-    return (
-      notes.find((note) => {
-        return note.id === currentNoteId;
-      }) || notes[0]
-    );
-  }
 
   return (
     <main>
@@ -76,13 +59,13 @@ export default function App() {
         <Split sizes={[30, 70]} direction="horizontal" className="split">
           <Sidebar
             notes={notes}
-            currentNote={findCurrentNote()}
+            currentNote={currentNote}
             setCurrentNoteId={setCurrentNoteId}
             newNote={createNewNote}
             deleteNote={deleteNote}
           />
           {currentNoteId && notes.length > 0 && (
-            <Editor currentNote={findCurrentNote()} updateNote={updateNote} />
+            <Editor currentNote={currentNote} updateNote={updateNote} />
           )}
         </Split>
       ) : (
