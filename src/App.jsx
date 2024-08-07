@@ -27,13 +27,17 @@ export default function App() {
   }
 
   function updateNote(text) {
-    setNotes((oldNotes) =>
-      oldNotes.map((oldNote) => {
+    //Put the most-recently modified note at the top
+    setNotes((oldNotes) => {
+      const updatedNote = oldNotes.map((oldNote) => {
         return oldNote.id === currentNoteId
           ? { ...oldNote, body: text }
           : oldNote;
-      })
-    );
+      });
+      const currentNote = updatedNote.find(note => note.id === currentNoteId);
+      const filteredNotes = updatedNote.filter(note => note.id !== currentNoteId);
+      return [currentNote, ...filteredNotes];
+    });
   }
 
   function findCurrentNote() {
