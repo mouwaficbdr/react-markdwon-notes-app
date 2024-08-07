@@ -14,3 +14,7 @@ Markdown Note Taker is a simple web application that allows you to take notes in
 - **React**: A popular JavaScript library for building user interfaces.
 - **Markdown**: A lightweight markup language with plain-text formatting syntax.
 - **nanoid**: A small, secure, URL-friendly unique string ID generator.
+
+## Live Version
+
+You can access the live version of the application at [react-markdown-notes-app.vercel.app](https://react-markdwon-notes-app.vercel.app/).
